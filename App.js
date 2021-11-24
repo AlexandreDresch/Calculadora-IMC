@@ -2,21 +2,25 @@ import * as React from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
-// You can import from local files
+
 import AssetExample from './components/AssetExample';
 
-// or any pure javascript modules available in npm
+
 import { Button } from 'react-native-paper';
 
 export default class App extends React.Component {
   render() {
+
+    const imc = 25;
+    const legenda = 'Normal';
+
     return (
       <View style={styles.app}>
         <Text style={styles.legenda}>Seu IMC</Text>
 
         <View>
-          <Text style={styles.resultado}>25</Text>
-          <Text style={styles.diagnostico}>Normal</Text>
+          <Text style={styles.resultado}>{imc}</Text>
+          <Text style={styles.diagnostico}>{legenda}</Text>
         </View>
 
         <View>
