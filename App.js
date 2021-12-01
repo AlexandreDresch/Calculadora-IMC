@@ -11,8 +11,8 @@ import AssetExample from './components/AssetExample';
 export default class App extends React.Component {
 
   state = {
-      peso : 58,
-      altura: 1.71,
+      peso : 0,
+      altura: 0,
       imc: 0,
       legenda: "indeterminado"
   };
@@ -21,8 +21,8 @@ export default class App extends React.Component {
     const resultado = this.state.peso / (this.state.altura * this.state.altura);
 
     this.setState({
-      imc: resultado
-    })
+      imc: Math.ceil(resultado)
+    });
 
     if (resultado < 18.5) {
       this.setState({
@@ -59,8 +59,16 @@ export default class App extends React.Component {
         </View>
 
         <View>
-          <TextInput style={styles.peso}/>
-          <TextInput style={styles.altura}/>
+          <TextInput style={styles.peso} 
+          onChangeText={valor => {
+            this.setState({peso: valor.replace(',', '.')});
+          }}
+          />
+          <TextInput style={styles.altura}
+          onChangeText={valor => {
+            this.setState({altura: valor.replace(',', '.')});
+          }}
+          />
           <Button title="Calcular" onPress={this.calculoIMC}>
           </Button>
         </View>
