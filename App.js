@@ -1,14 +1,23 @@
 import * as React from 'react';
-import { Text, TextInput, View, StyleSheet } from 'react-native';
+import { Text, TextInput, Button, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 
 import AssetExample from './components/AssetExample';
 
 
-import { Button } from 'react-native-paper';
+//import { Button } from 'react-native-paper';
 
 export default class App extends React.Component {
+
+  calculoIMC = () => {
+    const peso = 58;
+    const altura = 1.71
+    const imc = peso / (altura * altura);
+
+    alert (imc);
+  }
+
   render() {
 
     const imc = 25;
@@ -26,8 +35,7 @@ export default class App extends React.Component {
         <View>
           <TextInput style={styles.peso}/>
           <TextInput style={styles.altura}/>
-          <Button>
-            Calcular
+          <Button title="Calcular" onPress={this.calculoIMC}>
           </Button>
         </View>
 
