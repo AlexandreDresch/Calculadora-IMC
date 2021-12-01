@@ -10,26 +10,52 @@ import AssetExample from './components/AssetExample';
 
 export default class App extends React.Component {
 
-  calculoIMC = () => {
-    const peso = 58;
-    const altura = 1.71
-    const imc = peso / (altura * altura);
+  state = {
+      peso : 58,
+      altura: 1.71,
+      imc: 0,
+      legenda: "indeterminado"
+  };
 
-    alert (imc);
-  }
+  calculoIMC = () => {
+    const resultado = this.state.peso / (this.state.altura * this.state.altura);
+
+    this.setState({
+      imc: resultado
+    })
+
+    if (resultado < 18.5) {
+      this.setState({
+        legenda: 'Magreza'
+      });
+    } else if (resultado >= 18.5 && resultado < 25) {
+      this.setState({
+        legenda: 'Normal'
+      });
+    } else if (resultado >= 25 && resultado < 30) {
+      this.setState({
+        legenda: 'Sobrepeso'
+      });
+    } else if (resultado >= 30 && resultado < 40) {
+      this.setState({
+        legenda: 'Obesidade'
+      });
+    } else if (resultado >= 40) {
+      this.setState({
+        legenda: 'Obesidade Grave'
+      });
+    }
+  };
 
   render() {
-
-    const imc = 25;
-    const legenda = 'Normal';
 
     return (
       <View style={styles.app}>
         <Text style={styles.legenda}>Seu IMC</Text>
 
         <View>
-          <Text style={styles.resultado}>{imc}</Text>
-          <Text style={styles.diagnostico}>{legenda}</Text>
+          <Text style={styles.resultado}>{this.state.imc}</Text>
+          <Text style={styles.diagnostico}>{this.state.legenda}</Text>
         </View>
 
         <View>
@@ -43,6 +69,7 @@ export default class App extends React.Component {
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   app: {
