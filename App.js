@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { Text, TextInput, Button, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
+import { Text, View, StyleSheet } from 'react-native';
 
 
-import AssetExample from './components/AssetExample';
-
-
-//import { Button } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 
 export default class App extends React.Component {
 
@@ -14,7 +10,8 @@ export default class App extends React.Component {
       peso : 0,
       altura: 0,
       imc: 0,
-      legenda: "indeterminado"
+      legenda: "Indeterminado",
+      cor: '#bdc3c7',
   };
 
   calculoIMC = () => {
@@ -26,23 +23,28 @@ export default class App extends React.Component {
 
     if (resultado < 18.5) {
       this.setState({
-        legenda: 'Magreza'
+        legenda: 'Magreza',
+        cor: '#e74c3c',
       });
     } else if (resultado >= 18.5 && resultado < 25) {
       this.setState({
-        legenda: 'Normal'
+        legenda: 'Normal',
+        cor: '#2ecc71',
       });
     } else if (resultado >= 25 && resultado < 30) {
       this.setState({
-        legenda: 'Sobrepeso'
+        legenda: 'Sobrepeso',
+        cor: '#f1c40f',
       });
     } else if (resultado >= 30 && resultado < 40) {
       this.setState({
-        legenda: 'Obesidade'
+        legenda: 'Obesidade',
+        cor: '#e67e22',
       });
     } else if (resultado >= 40) {
       this.setState({
-        legenda: 'Obesidade Grave'
+        legenda: 'Obesidade Grave',
+        cor: '#e74c3c',
       });
     }
   };
@@ -53,23 +55,26 @@ export default class App extends React.Component {
       <View style={styles.app}>
         <Text style={styles.legenda}>Seu IMC</Text>
 
-        <View>
+        <View style={[styles.painel, {backgroundColor: this.state.cor}]}>
           <Text style={styles.resultado}>{this.state.imc}</Text>
           <Text style={styles.diagnostico}>{this.state.legenda}</Text>
         </View>
 
         <View>
           <TextInput style={styles.peso} 
+          label="Peso"
           onChangeText={valor => {
             this.setState({peso: valor.replace(',', '.')});
           }}
           />
           <TextInput style={styles.altura}
+          label="Altura"
           onChangeText={valor => {
             this.setState({altura: valor.replace(',', '.')});
           }}
           />
-          <Button title="Calcular" onPress={this.calculoIMC}>
+          <Button mode='outlined' onPress={this.calculoIMC}>
+            Calcular
           </Button>
         </View>
 
@@ -89,6 +94,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+  painel: {
+    backgroundColor: '#bdc3c7',
+    alignSelf: 'center',
+    borderRadius: 5,
+    width: 150,
+    marginVertical: 10,
+    padding: 8,
+  },
+
   resultado: {
     textAlign: "center",
     fontSize: 22,
@@ -101,12 +115,10 @@ const styles = StyleSheet.create({
   },
 
   peso: {
-    borderColor: '#000',
-    borderWidth: 1,
+    marginVertical: 10,
   },
 
   altura: {
-    borderColor: '#000',
-    borderWidth: 1,
+    marginVertical: 10,
   },
 });
